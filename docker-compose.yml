@@ -1,0 +1,35 @@
+services:
+  nginx:
+    build:
+      context: ./docker/nginx
+    container_name: imasderol-api-nginx
+    depends_on:
+      - php
+    ports:
+      - '80:80'
+  php:
+    build:
+      context: ./docker/php
+    container_name: imasderol-api-php
+    depends_on:
+      - mysql
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - '9000:9000'
+    volumes:
+      - '.:/var/www/html'
+  mysql:
+    container_name: imasderol-api-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: imasderol-api
+      MYSQL_USER: montisgal
+      MYSQL_PASSWORD: montisgal
+    image: mysql:8.2.0
+    ports:
+      - "3306:3306"
+    volumes:
+      - imasderol-api-db:/var/lib/mysql
+volumes:
+  imasderol-api-db:
