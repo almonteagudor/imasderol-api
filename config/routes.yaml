@@ -1,5 +1,8 @@
-controllers:
-    resource:
-        path: ../src/Controller/
-        namespace: App\Controller
-    type: attribute
+zombicide_controllers:
+  resource:
+    path: ../src/Controller/Zombicide
+    namespace: App\Controller\Zombicide
+  type: attribute
+  prefix: '/zombicide'
+  name_prefix: zombicide
+  trailing_slash_on_root: false
